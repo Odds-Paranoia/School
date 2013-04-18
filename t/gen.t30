@@ -1,0 +1,11 @@
+int foo(int x) {
+	if (x * x < 0) {
+		return 123;
+	}
+}
+
+main() {
+	foo(-1);
+}
+
+// Works! (9)

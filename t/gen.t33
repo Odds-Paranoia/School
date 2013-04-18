@@ -1,0 +1,10 @@
+main() {
+	int i;
+
+	while ((i = getchar()) != -1) {
+		printc(i);
+	}
+}
+
+// Works brilliantly. (11)
+// ctrl+d to quit.

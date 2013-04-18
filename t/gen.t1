@@ -1,0 +1,5 @@
+main() {
+	prints("Hello, world!\n");
+}
+
+// WORKS (1)

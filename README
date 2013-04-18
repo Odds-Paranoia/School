@@ -1,0 +1,26 @@
+This compiler does not do typechecking. I got about 3/4 through that before it became such a ridiculous bloated mess that I simply deleted it and sacrificed those marks in order to finish the project at all.
+
+It does not compile all J-- files, notably recursive ones, or files that are too long.
+
+
+To make and run a testfile, simply copy the test file's contents (from folder t) into the file 'test.jmm' in the project's root directory, save it, then type 
+>make
+in a console -> this runs the test as well.
+
+To just build the compiler itself, type 
+>make compiler
+instead.
+
+To build the compiler and the testfile, but not actually run the test, type 
+>make full
+
+To run the test manually after doing previous, type
+>make runtest
+
+Assembly output of the testfile is in test.s.
+All test files are in the folder 't'.
+Runtime system is in rts.s
+Assembled objects are rts.o and test.o
+Linked ARM binary is test.exe
+Compiler is jmm.exe
+File containing J-- input to be compiled into ARM is in 'test.jmm'. Usage for this file is at top of README.

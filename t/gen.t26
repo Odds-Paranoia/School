@@ -1,0 +1,42 @@
+void convert(int n, int base)
+{
+	if (n == 0) {
+		printi(0);
+		return;
+	}
+	convert(n / base, base);
+	printi(n % base);
+}
+
+void do(int i)
+{
+	printi(i);		prints(" = \n");
+	prints("\t");		convert(i, 2);		prints(" (base 2)\n");
+	prints("\t");		convert(i, 8);		prints(" (base 8)\n");
+	prints("\t");		convert(i, 10);		prints(" (base 10)\n");
+}
+
+main()
+{
+	do(0);
+	do(17);
+	do(42);
+}
+
+// Doesn't work (3)
+// Terminal output:
+
+// 0 = 
+// 	0 (base 2)
+// 	0 (base 8)
+// 	0 (base 10)
+// 17 = 
+// 	qemu: hardware error: icp_control_write: Bad offset 7fffe8
+
+// CPU #0:
+// R00=00000002 R01=00000008 R02=00000002 R03=00000011
+// R04=00000000 R05=00000000 R06=00000000 R07=00000000
+// R08=00000000 R09=00000000 R10=00000000 R11=00000000
+// R12=00118340 R13=cb800018 R14=001183c0 R15=00118350
+// PSR=600001d3 -ZC- A svc32
+// make: *** [runtest] Aborted (core dumped)

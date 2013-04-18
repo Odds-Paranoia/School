@@ -1,0 +1,88 @@
+comment "//" ;
+
+Prog. 	Program ::= [GlobalDec] ;
+
+GFuncDec.		GlobalDec ::= Type Identifier "(" [FormalParam] ")" Block ;
+GVFuncDec.		GlobalDec ::= "void" Identifier "(" [FormalParam] ")" Block ;
+GMainFuncDec.	GlobalDec ::= Identifier "(" ")" "{" [Statement] "}" ;
+GVarDec.		GlobalDec ::= Type Identifier ";" ;
+
+terminator Statement "" ;
+terminator GlobalDec "" ;
+separator FormalParam "," ;
+separator Expression "," ;
+
+EInt. 	Literal ::= Integer ;
+EString. Literal ::= String ;
+ETrue. 	Literal ::= "false" ;
+EFalse.	Literal ::= "true"	;
+
+TBool. 	Type ::= "boolean"	;
+TInt. 	Type ::= "int"		;
+
+EId. 		Identifier ::= PIdentifier ;
+
+FParam.		FormalParam ::= Type Identifier ;
+
+BBlock.		Block ::= "{" [Statement] "}" ;
+
+SVarDec.	Statement ::= Type Identifier ";" ;
+SBlock.		Statement1 ::= Block ;
+SEmpty.		Statement ::= ";" 	;
+SAssign.	Statement ::= Assignment ";" 	;
+SCall.		Statement ::= FunctionInvocation ";" ; 
+SBreak.		Statement ::= "break" ";" 				;
+SRetExpr.	Statement1 ::= "return" Expression ";" 	;
+SRet.		Statement ::= "return" ";" 				;
+SIfElse.	Statement1 ::= "if" "(" Expression ")" Statement "else" Statement ;
+SIf.		Statement ::= "if" "(" Expression ")" Statement 		;
+SWhile.		Statement ::= "while" "(" Expression ")" Statement 		;		
+
+_. Statement ::= Statement1 ;
+
+FCall.		FunctionInvocation ::= Identifier "(" [Expression] ")" 	;
+
+PLiteral.	Primary ::= Literal 			;
+PExpr.		Primary ::= "(" Expression ")" 	;
+PFuncInv.	Primary ::= FunctionInvocation 	;
+		
+PFExprPrim.	PostFixExpression ::= Primary 		;
+PFExprID.	PostFixExpression ::= Identifier 	;
+
+UnExpr.		UnaryExpression ::= PostFixExpression	;			
+UnExprMin.	UnaryExpression ::= "-" UnaryExpression	;
+UnExprNeg.	UnaryExpression ::= "!" UnaryExpression	;
+					
+MulExpr.	MultiplicativeExpression ::= UnaryExpression ;
+MulExprMul.	MultiplicativeExpression ::= MultiplicativeExpression "*" UnaryExpression ;
+MulExprDiv.	MultiplicativeExpression ::= MultiplicativeExpression "/" UnaryExpression ;		
+MulExprMod.	MultiplicativeExpression ::= MultiplicativeExpression "%" UnaryExpression ;		
+		
+AddExpr.	AdditiveExpression	::= MultiplicativeExpression ;
+AddExprAdd.	AdditiveExpression	::= AdditiveExpression "+" MultiplicativeExpression ;
+AddExprSub.	AdditiveExpression	::= AdditiveExpression "-" MultiplicativeExpression ;
+			
+RelExpr.	RelationalExpression ::= AdditiveExpression ;
+RelExprLT.	RelationalExpression ::= RelationalExpression "<" AdditiveExpression ;
+RelExprGT.	RelationalExpression ::= RelationalExpression ">" AdditiveExpression ;
+RelExprLE.	RelationalExpression ::= RelationalExpression "<=" AdditiveExpression ;
+RelExprGE.	RelationalExpression ::= RelationalExpression ">=" AdditiveExpression ;
+			
+EqExpr.		EqualityExpression	::= RelationalExpression ;
+EqExprEQ.	EqualityExpression	::= EqualityExpression "==" RelationalExpression ;
+EqExprNE.	EqualityExpression	::= EqualityExpression "!=" RelationalExpression ;
+			
+CAExpr.		ConditionalAndExpression ::= EqualityExpression ;
+CAExprAnd.	ConditionalAndExpression ::= ConditionalAndExpression "&&" EqualityExpression ;
+			
+COExpr.		ConditionalOrExpression	::= ConditionalAndExpression ;
+COExprOr.	ConditionalOrExpression	::= ConditionalOrExpression "||" ConditionalAndExpression ;
+
+AssExpr.	AssignmentExpression ::= ConditionalOrExpression ;
+AssExprAss.	AssignmentExpression ::= Assignment ;
+
+Assign.		Assignment ::= Identifier "=" AssignmentExpression ;
+			
+Expr.		Expression ::= AssignmentExpression ;
+
+position token PIdentifier (letter | '_' ) (letter | digit | '_' )* ;
